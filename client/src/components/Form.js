@@ -26,6 +26,7 @@ const Form = props => {
 
   useEffect(() => {
     if (props.isEditing) {
+      console.log(props.userToEdit);
       setFormInput({
         email: props.userToEdit.email,
         password: props.userToEdit.password,
