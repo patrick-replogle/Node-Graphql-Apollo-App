@@ -18,7 +18,7 @@ const typeDefs = gql`
     firstName: String!
     lastName: String!
     location: String!
-    gender: String
+    gender: String!
   }
 
   input UpdateUserInput {
@@ -27,7 +27,7 @@ const typeDefs = gql`
     firstName: String!
     lastName: String!
     location: String!
-    gender: String
+    gender: String!
   }
 
   type Query {
@@ -37,7 +37,7 @@ const typeDefs = gql`
 
   type Mutation {
     addUser(input: NewUserInput!): User!
-    updateUser(id: ID!, input: UpdateUserInput): User!
+    updateUser(id: ID!, input: UpdateUserInput!): User!
     removeUser(id: ID!): User!
   }
 `;
