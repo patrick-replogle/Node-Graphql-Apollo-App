@@ -1,0 +1,33 @@
+{
+  "name": "node-graphql-knex-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon ./api/server.js",
+    "test": "cross-env DB_ENV=testing jest --watch --verbose  --runInBand",
+    "start": "node ./api/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^2.11.0",
+    "apollo-server-express": "^2.11.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "gql": "^1.1.2",
+    "graphql": "^14.6.0",
+    "graphql-import": "^1.0.1",
+    "graphql-tag": "^2.10.3",
+    "helmet": "^3.21.3",
+    "knex": "^0.20.12",
+    "pg": "^7.18.2",
+    "uuid": "^7.0.2"
+  },
+  "devDependencies": {
+    "dot-env": "0.0.1",
+    "nodemon": "^2.0.2"
+  }
+}
