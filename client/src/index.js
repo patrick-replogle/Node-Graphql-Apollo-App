@@ -3,10 +3,8 @@ import ReactDOM from "react-dom";
 import { ApolloProvider } from "@apollo/react-hooks";
 import "./index.css";
 import { ApolloClient, HttpLink, InMemoryCache } from "apollo-client-preset";
+import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
-
-// also can be setup in a seperate client file
-//import client from "./client";
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -16,8 +14,10 @@ const client = new ApolloClient({
 });
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <App />
-  </ApolloProvider>,
+  <Router>
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
+  </Router>,
   document.getElementById("root")
 );
