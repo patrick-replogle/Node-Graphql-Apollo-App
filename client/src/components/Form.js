@@ -26,7 +26,6 @@ const Form = props => {
 
   useEffect(() => {
     if (props.isEditing) {
-      console.log(props.userToEdit);
       setFormInput({
         email: props.userToEdit.email,
         password: props.userToEdit.password,
@@ -75,6 +74,7 @@ const Form = props => {
 
   return (
     <>
+      {props.isEditing ? <p>Edit a User</p> : <p>Add a User</p>}
       {error && <p>{error}</p>}
       <form onSubmit={handleSubmit}>
         <input
