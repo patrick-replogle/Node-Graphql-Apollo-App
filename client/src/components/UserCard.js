@@ -5,6 +5,8 @@ import { DELETE_USER } from "../graphql/mutations.js";
 
 const UserCard = props => {
   const usersList = useQuery(ALL_USERS);
+  console.log(usersList);
+
   const [delUser, removedUser] = useMutation(DELETE_USER, {
     refetchQueries: [{ query: ALL_USERS }]
   });
