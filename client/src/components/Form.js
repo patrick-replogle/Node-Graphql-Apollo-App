@@ -17,11 +17,23 @@ const Form = props => {
   const [error, setError] = useState("");
 
   const [createUser] = useMutation(NEW_USER, {
-    refetchQueries: [{ query: ALL_USERS }]
+    update(cache, { data: { addUser } }) {
+      const { users } = cache.readQuery({ query: ALL_USERS });
+      cache.writeQuery({
+        query: ALL_USERS,
+        data: { users: users.concat([addUser]) }
+      });
+    }
   });
 
   const [updateUser] = useMutation(UPDATE_USER, {
-    refetchQueries: [{ query: ALL_USERS }]
+    update(cache, { data: { updateUser } }) {
+      const { users } = cache.readQuery({ query: ALL_USERS });
+      cache.writeQuery({
+        query: ALL_USERS,
+        data: { users: users.concat([updateUser]) }
+      });
+    }
   });
 
   useEffect(() => {
