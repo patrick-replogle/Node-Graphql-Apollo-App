@@ -5,14 +5,13 @@ import { DELETE_USER } from "../graphql/mutations.js";
 
 const UserCard = props => {
   const usersList = useQuery(ALL_USERS);
-  console.log(usersList);
 
-  const [delUser, removedUser] = useMutation(DELETE_USER, {
+  const [deletedUser] = useMutation(DELETE_USER, {
     refetchQueries: [{ query: ALL_USERS }]
   });
 
   const deleteUser = id => {
-    delUser({
+    deletedUser({
       variables: { id: id }
     });
   };
@@ -23,11 +22,11 @@ const UserCard = props => {
     props.history.push("/form");
   };
 
-  if (usersList.loading || removedUser.loading) {
+  if (usersList.loading) {
     return <p>...loading</p>;
   }
 
-  if (usersList.error || removedUser.error) {
+  if (usersList.error) {
     return <p>error!</p>;
   }
   return (
