@@ -12,7 +12,13 @@ const initialFormState = {
   gender: ""
 };
 
-const Form = props => {
+const Form = ({
+  isEditing,
+  userToEdit,
+  setIsEditing,
+  setUserToEdit,
+  history
+}) => {
   const [formInput, setFormInput] = useState(initialFormState);
   const [error, setError] = useState("");
 
@@ -21,21 +27,36 @@ const Form = props => {
   });
 
   const [updateUser] = useMutation(UPDATE_USER, {
-    refetchQueries: [{ query: ALL_USERS }]
+    update(cache, { data: { updateUser } }) {
+      const { users } = cache.readQuery({ query: ALL_USERS });
+
+      cache.writeQuery({
+        query: ALL_USERS,
+        data: { users }
+      });
+    }
   });
 
   useEffect(() => {
-    if (props.isEditing) {
+    if (isEditing) {
       setFormInput({
-        email: props.userToEdit.email,
-        password: props.userToEdit.password,
-        firstName: props.userToEdit.firstName,
-        lastName: props.userToEdit.lastName,
-        location: props.userToEdit.location,
-        gender: props.userToEdit.gender
+        email: userToEdit.email,
+        password: userToEdit.password,
+        firstName: userToEdit.firstName,
+        lastName: userToEdit.lastName,
+        location: userToEdit.location,
+        gender: userToEdit.gender
       });
     }
-  }, [props.isEditing, props.userToEdit]);
+  }, [
+    isEditing,
+    userToEdit.email,
+    userToEdit.password,
+    userToEdit.firstName,
+    userToEdit.lastName,
+    userToEdit.location,
+    userToEdit.gender
+  ]);
 
   const handleChange = e => {
     e.preventDefault();
@@ -45,36 +66,36 @@ const Form = props => {
   const handleSubmit = async e => {
     e.preventDefault();
     setError("");
-    if (props.isEditing) {
+    if (isEditing) {
       try {
-        const { data } = await updateUser({
-          variables: { id: props.userToEdit.id, input: formInput }
+        await updateUser({
+          variables: { id: userToEdit.id, input: formInput }
         });
+        setIsEditing(false);
         setFormInput(initialFormState);
-        props.setUserToEdit({});
-        props.setIsEditing(false);
-        props.history.push("/");
+        setUserToEdit({});
+        history.push("/");
       } catch (e) {
         console.log(e);
-        setError(e.message);
+        setError(e.message.slice(14));
       }
     } else {
       try {
-        const { data } = await createUser({
+        await createUser({
           variables: { input: formInput }
         });
         setFormInput(initialFormState);
-        props.history.push("/");
+        history.push("/");
       } catch (e) {
         console.log(e);
-        setError(e.message);
+        setError(e.message.slice(14));
       }
     }
   };
 
   return (
     <>
-      {props.isEditing ? <p>Edit a User</p> : <p>Add a User</p>}
+      {isEditing ? <p>Edit a User</p> : <p>Add a User</p>}
       {error && <p>{error}</p>}
       <form onSubmit={handleSubmit}>
         <input
@@ -83,6 +104,14 @@ const Form = props => {
           onChange={handleChange}
           value={formInput.email}
           placeholder="email"
+          required
+        />
+        <input
+          type="text"
+          name="password"
+          onChange={handleChange}
+          value={formInput.password}
+          placeholder="password"
           required
         />
         <input
@@ -101,14 +130,7 @@ const Form = props => {
           placeholder="lastName"
           required
         />
-        <input
-          type="text"
-          name="password"
-          onChange={handleChange}
-          value={formInput.password}
-          placeholder="password"
-          required
-        />
+
         <input
           type="text"
           name="location"
@@ -129,9 +151,9 @@ const Form = props => {
         <button
           onClick={() => {
             setFormInput(initialFormState);
-            props.setIsEditing(false);
-            props.setUserToEdit({});
-            props.history.push("/");
+            setIsEditing(false);
+            setUserToEdit({});
+            history.push("/");
           }}
         >
           Cancel

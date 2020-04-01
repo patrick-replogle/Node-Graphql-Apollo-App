@@ -5,6 +5,7 @@ import { DELETE_USER } from "../graphql/mutations.js";
 
 const UserCard = props => {
   const usersList = useQuery(ALL_USERS);
+  console.log(usersList.data);
 
   const [deletedUser] = useMutation(DELETE_USER, {
     refetchQueries: [{ query: ALL_USERS }]
@@ -39,6 +40,7 @@ const UserCard = props => {
             <p>{user.lastName}</p>
             <p>{user.location}</p>
             <p>{user.gender}</p>
+            <p>{Number(user.created_at)}</p>
             <button
               onClick={e => {
                 e.preventDefault();

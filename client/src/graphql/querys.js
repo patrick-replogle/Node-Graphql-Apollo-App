@@ -8,7 +8,7 @@ export const ALL_USERS = gql`
       password
       firstName
       lastName
-      createdAt
+      created_at
       location
       gender
     }

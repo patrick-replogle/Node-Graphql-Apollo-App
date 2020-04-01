@@ -3,12 +3,14 @@ import gql from "graphql-tag";
 export const NEW_USER = gql`
   mutation addUser($input: NewUserInput!) {
     addUser(input: $input) {
+      id
       firstName
       lastName
       password
       email
       location
       gender
+      createdAt
     }
   }
 `;
@@ -24,12 +26,14 @@ export const DELETE_USER = gql`
 export const UPDATE_USER = gql`
   mutation updateUser($id: ID!, $input: UpdateUserInput!) {
     updateUser(id: $id, input: $input) {
+      id
       firstName
       lastName
       password
       email
       location
       gender
+      created_at
     }
   }
 `;
