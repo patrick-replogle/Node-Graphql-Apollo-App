@@ -5,6 +5,7 @@ import "./App.css";
 import Form from "./components/Form.js";
 import UserCard from "./components/UserCard.js";
 import NavBar from "./components/NavBar.js";
+import FormikForm from "./components/FormikForm.js";
 
 function App() {
   const [isEditing, setIsEditing] = useState(false);
@@ -33,6 +34,21 @@ function App() {
         render={props => {
           return (
             <Form
+              {...props}
+              isEditing={isEditing}
+              setIsEditing={setIsEditing}
+              userToEdit={userToEdit}
+              setUserToEdit={setUserToEdit}
+            />
+          );
+        }}
+      />
+
+      <Route
+        path="/formik_form"
+        render={props => {
+          return (
+            <FormikForm
               {...props}
               isEditing={isEditing}
               setIsEditing={setIsEditing}

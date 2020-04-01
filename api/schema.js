@@ -9,25 +9,29 @@ const typeDefs = gql`
     lastName: String
     location: String
     gender: String
-    createdAt: String
+    created_at: String
   }
 
   input NewUserInput {
+    id: ID
     email: String!
     password: String!
     firstName: String!
     lastName: String!
     location: String!
     gender: String!
+    created_at: String
   }
 
   input UpdateUserInput {
+    id: ID
     email: String!
     password: String!
     firstName: String!
     lastName: String!
     location: String!
     gender: String!
+    created_at: String
   }
 
   type Query {

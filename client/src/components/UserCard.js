@@ -1,10 +1,12 @@
 import React from "react";
+import moment from "moment";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { ALL_USERS } from "../graphql/querys.js";
 import { DELETE_USER } from "../graphql/mutations.js";
 
 const UserCard = props => {
   const usersList = useQuery(ALL_USERS);
+  console.log(usersList.data);
 
   const [deletedUser] = useMutation(DELETE_USER, {
     refetchQueries: [{ query: ALL_USERS }]
@@ -19,7 +21,7 @@ const UserCard = props => {
   const handleEdit = user => {
     props.setUserToEdit(user);
     props.setIsEditing(true);
-    props.history.push("/form");
+    props.history.push("/formik_form");
   };
 
   if (usersList.loading) {
@@ -39,6 +41,7 @@ const UserCard = props => {
             <p>{user.lastName}</p>
             <p>{user.location}</p>
             <p>{user.gender}</p>
+            <p>{moment(Number(user.created_at)).format("LL")}</p>
             <button
               onClick={e => {
                 e.preventDefault();
