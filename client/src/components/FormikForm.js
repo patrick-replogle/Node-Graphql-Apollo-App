@@ -13,7 +13,6 @@ const validationSchema = Yup.object({
     .required("password required")
     .max(100)
     .min(6),
-
   firstName: Yup.string()
     .required("first name required")
     .max(35)
@@ -85,10 +84,12 @@ const FormikForm = ({
               });
               setIsEditing(false);
               setUserToEdit({});
+              setSubmitting(false);
               resetForm(initialFormState);
               history.push("/");
             } catch (e) {
               console.log(e);
+              setSubmitting(false);
               setStatus(e.message.slice(14));
             }
           } else {
@@ -97,9 +98,11 @@ const FormikForm = ({
                 variables: { input: values }
               });
               resetForm(initialFormState);
+              setSubmitting(false);
               history.push("/");
             } catch (e) {
               console.log(e);
+              setSubmitting(false);
               setStatus(e.message.slice(14));
             }
           }
