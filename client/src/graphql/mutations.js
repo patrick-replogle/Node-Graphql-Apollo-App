@@ -3,14 +3,12 @@ import gql from "graphql-tag";
 export const NEW_USER = gql`
   mutation addUser($input: NewUserInput!) {
     addUser(input: $input) {
-      id
       firstName
       lastName
       password
       email
       location
       gender
-      createdAt
     }
   }
 `;

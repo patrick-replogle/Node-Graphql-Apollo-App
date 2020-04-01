@@ -3,6 +3,7 @@ import { useMutation } from "@apollo/react-hooks";
 import { ALL_USERS } from "../graphql/querys.js";
 import { NEW_USER, UPDATE_USER } from "../graphql/mutations.js";
 
+// converted to formik in FormikForm component
 const initialFormState = {
   email: "",
   password: "",

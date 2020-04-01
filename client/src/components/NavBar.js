@@ -5,7 +5,7 @@ const NavBar = props => {
   return (
     <>
       <Link to="/">Home</Link>
-      <Link to="/form">Add User Form</Link>
+      <Link to="/formik_form">Add User Form</Link>
     </>
   );
 };
