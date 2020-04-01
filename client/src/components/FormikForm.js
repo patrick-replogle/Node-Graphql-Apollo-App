@@ -89,6 +89,7 @@ const FormikForm = ({
               history.push("/");
             } catch (e) {
               console.log(e);
+              setStatus(e.message.slice(14));
             }
           } else {
             try {
@@ -99,6 +100,7 @@ const FormikForm = ({
               history.push("/");
             } catch (e) {
               console.log(e);
+              setStatus(e.message.slice(14));
             }
           }
         }}
