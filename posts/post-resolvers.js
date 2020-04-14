@@ -6,7 +6,6 @@ const posts = (_, __, ___) => {
 
 const userPosts = (_, __, ctx) => {
   const user_id = ctx.headers.user_id;
-  console.log(user_id);
   return postModel.findBy({ user_id });
 };
 
