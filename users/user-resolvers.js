@@ -6,10 +6,6 @@ const {
 const userModel = require("./user-model.js");
 const postModel = require("../posts/post-model.js");
 
-// const users = (_, __, ___) => {
-//   return userModel.find();
-// };
-
 const users = async (_, __, ___) => {
   const userList = await userModel.find();
   const data = userList.map(async (user) => {
@@ -23,20 +19,20 @@ const users = async (_, __, ___) => {
   return [...users];
 };
 
-// const user = (_, { id }, {}) => {
-//   return userModel.findById(id);
-// };
-
-const user = async (_, { id }, {}) => {
+const user = async (_, { id }, ___) => {
   const user = await userModel.findById(id);
   const posts = await postModel.findBy({ user_id: id });
-  return {
-    ...user,
-    posts: [...posts],
-  };
+  if (user !== undefined) {
+    return {
+      ...user,
+      posts: [...posts],
+    };
+  } else {
+    throw new Error("Specified user id does not exist");
+  }
 };
 
-const addUser = async (_, { input }, {}) => {
+const addUser = async (_, { input }, ___) => {
   const existing = await userModel.findBy({ email: input.email }).first();
   if (existing) {
     throw new UserInputError("email already taken");
@@ -45,11 +41,11 @@ const addUser = async (_, { input }, {}) => {
   }
 };
 
-const updateUser = async (_, { id, input }, {}) => {
+const updateUser = async (_, { id, input }, ___) => {
   return userModel.update(id, input);
 };
 
-const removeUser = (_, { id }, {}) => {
+const removeUser = (_, { id }, ___) => {
   return userModel.remove(id);
 };
 
