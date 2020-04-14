@@ -6,7 +6,7 @@ module.exports = {
   findById,
   add,
   update,
-  remove
+  remove,
 };
 
 function find() {
@@ -24,20 +24,16 @@ async function add(user) {
 }
 
 function findById(id) {
-  return db("users")
-    .where("id", id)
-    .first();
+  return db("users").where("id", id).first();
 }
 
 function update(id, changes) {
   return db("users")
     .where({ id })
     .update(changes)
-    .then(count => (count > 0 ? this.findById(id) : null));
+    .then((count) => (count > 0 ? this.findById(id) : null));
 }
 
 function remove(id) {
-  return db("users")
-    .where({ id })
-    .del();
+  return db("users").where({ id }).del();
 }
