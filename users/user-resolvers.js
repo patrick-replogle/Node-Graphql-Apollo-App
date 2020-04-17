@@ -22,7 +22,7 @@ const users = async (_, __, ___) => {
 const user = async (_, { id }, ___) => {
   const user = await userModel.findById(id);
   const posts = await postModel.findBy({ user_id: id });
-  if (user !== undefined) {
+  if (user) {
     return {
       ...user,
       posts: [...posts],

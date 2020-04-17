@@ -6,7 +6,10 @@
   "scripts": {
     "server": "nodemon ./api/server.js",
     "test": "cross-env DB_ENV=testing jest --watch --verbose  --runInBand",
-    "start": "node ./api/server.js"
+    "start": "node ./api/server.js",
+    "rollback": "npx knex migrate:rollback",
+    "migrate": "npx knex migrate:latest",
+    "seed": "npx knex seed:run"
   },
   "keywords": [],
   "author": "",
