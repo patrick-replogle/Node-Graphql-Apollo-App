@@ -4,12 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon ./api/server.js",
+    "server": "nodemon ./api/index.js",
     "test": "cross-env DB_ENV=testing jest --watch --verbose  --runInBand",
     "start": "node ./api/server.js",
     "rollback": "npx knex migrate:rollback",
     "migrate": "npx knex migrate:latest",
-    "seed": "npx knex seed:run"
+    "seed": "npx knex seed:run",
+    "coverage": "jest --coverage --detectOpenHandles --forceExit || true"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "keywords": [],
   "author": "",
@@ -18,19 +22,27 @@
     "apollo-server": "^2.11.0",
     "apollo-server-express": "^2.11.0",
     "cors": "^2.8.5",
+    "easygraphql-tester": "^5.1.6",
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "gql": "^1.1.2",
     "graphql": "^14.6.0",
     "graphql-import": "^1.0.1",
     "graphql-tag": "^2.10.3",
+    "graphql-tools": "^5.0.0",
     "helmet": "^3.21.3",
     "knex": "^0.20.12",
+    "knex-cleaner": "^1.3.0",
     "pg": "^7.18.2",
     "uuid": "^7.0.2"
   },
   "devDependencies": {
+    "apollo-server-testing": "^2.12.0",
+    "cross-env": "^7.0.2",
     "dot-env": "0.0.1",
-    "nodemon": "^2.0.2"
+    "jest": "^25.3.0",
+    "nodemon": "^2.0.2",
+    "sqlite3": "^4.1.1",
+    "supertest": "^4.0.2"
   }
 }

@@ -18,7 +18,7 @@ function findBy(filter) {
 }
 
 async function add(user) {
-  const [id] = await db("users").insert(user, "id");
+  const [id] = await db("users").insert(user).returning("id");
 
   return findById(id);
 }
@@ -31,6 +31,7 @@ function update(id, changes) {
   return db("users")
     .where({ id })
     .update(changes)
+    .returning("id")
     .then((count) => (count > 0 ? this.findById(id) : null));
 }
 
