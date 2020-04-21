@@ -19,9 +19,9 @@ const users = async (_, __, ___) => {
   return [...users];
 };
 
-const user = async (_, { id }, ___) => {
-  const user = await userModel.findById(id);
-  const posts = await postModel.findBy({ user_id: id });
+const user = async (_, args, ___) => {
+  const user = await userModel.findById(args.id);
+  const posts = await postModel.findBy({ user_id: args.id });
   if (user) {
     return {
       ...user,
@@ -32,21 +32,31 @@ const user = async (_, { id }, ___) => {
   }
 };
 
-const addUser = async (_, { input }, ___) => {
-  const existing = await userModel.findBy({ email: input.email }).first();
+const addUser = async (_, args, ___) => {
+  const existing = await userModel.findBy({ email: args.input.email }).first();
   if (existing) {
     throw new UserInputError("email already taken");
   } else {
-    return userModel.add(input);
+    return userModel.add(args.input);
   }
 };
 
-const updateUser = async (_, { id, input }, ___) => {
-  return userModel.update(id, input);
+const updateUser = async (_, args, ___) => {
+  const user = await userModel.findById(args.id);
+  if (!user) {
+    throw new Error("The specified user id does not exist");
+  } else {
+    return userModel.update(args.id, args.input);
+  }
 };
 
-const removeUser = (_, { id }, ___) => {
-  return userModel.remove(id);
+const removeUser = async (_, args, ___) => {
+  const user = await userModel.findById(args.id);
+  if (!user) {
+    throw new Error("The specified user id does not exist");
+  } else {
+    return userModel.remove(args.id);
+  }
 };
 
 module.exports = {

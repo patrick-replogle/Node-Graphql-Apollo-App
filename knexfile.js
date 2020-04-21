@@ -21,20 +21,17 @@ module.exports = {
     useNullAsDefault: true,
   },
   testing: {
-    client: "pg",
-    connection: process.env.TEST_DATABASE_URL,
+    client: "sqlite3",
+    connection: {
+      filename: "./database/test.db3",
+    },
+    useNullAsDefault: true,
     migrations: {
       directory: "./database/migrations",
-      tablename: "knex_migrations",
     },
     seeds: {
       directory: "./database/seeds",
     },
-    pool: {
-      min: 2,
-      max: 10,
-    },
-    useNullAsDefault: true,
   },
   production: {
     client: "pg",
