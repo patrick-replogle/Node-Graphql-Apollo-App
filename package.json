@@ -27,7 +27,7 @@
     "fs": "0.0.1-security",
     "gql": "^1.1.2",
     "graphql": "^14.6.0",
-    "graphql-import": "^1.0.1",
+    "graphql-import": "^1.0.2",
     "graphql-tag": "^2.10.3",
     "graphql-tools": "^5.0.0",
     "helmet": "^3.21.3",
